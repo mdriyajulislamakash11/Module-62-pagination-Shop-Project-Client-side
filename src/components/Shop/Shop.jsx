@@ -12,8 +12,9 @@ import { Link, useLoaderData } from "react-router-dom";
 const Shop = () => {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
+  
   const { count } = useLoaderData();
-  const itemsPerPage = 10;
+  const [itemsPerPage, setItemsPerPage] = useState(10)
   const numberOfPages = Math.ceil(count / itemsPerPage);
 
   // etar kaj ar nicher tar kaj eki
@@ -25,6 +26,12 @@ const Shop = () => {
   const pages = [...Array(numberOfPages).keys()];
 
   console.log(pages);
+
+  const handleItemPerPage = (e) => {
+    const val = parseInt(e.target.value)
+    console.log(val)
+    setItemsPerPage(val)
+  }
 
   useEffect(() => {
     fetch("http://localhost:5000/products")
@@ -97,10 +104,18 @@ const Shop = () => {
       </div>
 
       {/* pagination  */}
-      <div>
+      <div className="pagination">
         {pages.map((page) => (
           <button key={page}>{page}</button>
         ))}
+        <select value={itemsPerPage} onChange={handleItemPerPage} name="" id="">
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="30">30</option>
+          <option value="40">40</option>
+          <option value="50">50</option>
+        </select>
       </div>
     </div>
   );
