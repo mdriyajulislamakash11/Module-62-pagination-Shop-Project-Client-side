@@ -12,9 +12,9 @@ import { Link, useLoaderData } from "react-router-dom";
 const Shop = () => {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
-  const [currentPage, setCurrentPage] = useState(0)
+  const [currentPage, setCurrentPage] = useState(0);
   const { count } = useLoaderData();
-  const [itemsPerPage, setItemsPerPage] = useState(10)
+  const [itemsPerPage, setItemsPerPage] = useState(10);
   const numberOfPages = Math.ceil(count / itemsPerPage);
 
   // etar kaj ar nicher tar kaj eki
@@ -28,10 +28,11 @@ const Shop = () => {
   console.log(pages);
 
   const handleItemPerPage = (e) => {
-    const val = parseInt(e.target.value)
-    console.log(val)
-    setItemsPerPage(val)
-  }
+    const val = parseInt(e.target.value);
+    console.log(val);
+    setItemsPerPage(val);
+    setCurrentPage(0);
+  };
 
   useEffect(() => {
     fetch("http://localhost:5000/products")
@@ -108,9 +109,12 @@ const Shop = () => {
         <p>CurrentPage: {currentPage}</p>
         {pages.map((page) => (
           <button
-          className={ currentPage === page && 'selected'}
-          onClick={() => setCurrentPage(page)}
-          key={page}>{page}</button>
+            className={currentPage === page && "selected"}
+            onClick={() => setCurrentPage(page)}
+            key={page}
+          >
+            {page}
+          </button>
         ))}
         <select value={itemsPerPage} onChange={handleItemPerPage} name="" id="">
           <option value="5">5</option>
