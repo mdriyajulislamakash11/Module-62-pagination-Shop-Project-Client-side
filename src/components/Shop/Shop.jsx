@@ -34,6 +34,17 @@ const Shop = () => {
     setCurrentPage(0);
   };
 
+  const handlePreviusPage = () => {
+    if(currentPage > 0) {
+      setCurrentPage(currentPage - 1)
+    }
+  }
+  const handleNextPage = () => {
+    if(currentPage < pages.length - 1) {
+      setCurrentPage(currentPage + 1)
+    }
+  }
+
   useEffect(() => {
     fetch("http://localhost:5000/products")
       .then((res) => res.json())
@@ -107,6 +118,7 @@ const Shop = () => {
       {/* pagination  */}
       <div className="pagination">
         <p>CurrentPage: {currentPage}</p>
+        <button onClick={handlePreviusPage}>Previus</button>
         {pages.map((page) => (
           <button
             className={currentPage === page && "selected"}
@@ -116,6 +128,7 @@ const Shop = () => {
             {page}
           </button>
         ))}
+        <button onClick={handleNextPage}>Next</button>
         <select value={itemsPerPage} onChange={handleItemPerPage} name="" id="">
           <option value="5">5</option>
           <option value="10">10</option>
